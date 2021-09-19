@@ -7,7 +7,7 @@ iplist = pd.read_csv("iplist.txt",header=None)
 #ipaddress=sys.argv[1]
 # periodically update the GeoLite2-City ip, specify the exact directory
 reader = geoip2.database.Reader('GeoLite2-City_20210914/GeoLite2-City.mmdb')
-
+# dataframe 
 for index, record in iplist.iterrows():
 	
 	if "#" in record[0]:
