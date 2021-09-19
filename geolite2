@@ -1,0 +1,11 @@
+import sys
+import geoip2.database
+
+ipaddress=sys.argv[1]
+# periodically update the GeoLite2-City ip, specify the exact directory
+reader = geoip2.database.Reader('GeoLite2-City_20210914/GeoLite2-City.mmdb')
+
+response = reader.city(ipaddress)
+print(response.country)
+print(response.country.names["en"])
+print(response.country.iso_code)
