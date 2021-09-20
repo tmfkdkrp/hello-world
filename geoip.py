@@ -2,6 +2,7 @@
 import sys
 import geoip2.database
 import pandas as pd
+import re
 
 iplist = pd.read_csv("iplist.txt",header=None)
 #ipaddress=sys.argv[1]
@@ -9,11 +10,11 @@ iplist = pd.read_csv("iplist.txt",header=None)
 reader = geoip2.database.Reader('GeoLite2-City_20210914/GeoLite2-City.mmdb')
 # dataframe 
 for index, record in iplist.iterrows():
-	
-	if "#" in record[0]:
-		continue
-	else:
-		response = reader.city(record[0])
+    record[0] = re.sub("[\[\]]","",record[0])
+    if "#" in record[0]:
+        continue
+    else:
+        response = reader.city(record[0])
 		
-		#print(response.country)
-		print(record[0],response.country.names["en"],response.country.iso_code,sep=",")
+        #print(response.country)
+        print(record[0],response.country.names["en"],response.country.iso_code,sep=",")
